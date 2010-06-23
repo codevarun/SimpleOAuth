@@ -56,7 +56,7 @@ class OAuthClient {
 	/**
 	 * Call a specific method
 	 */
-	public function call_method($method, $auth_token, $auth_secret, $method_params) {
+	public function call_method($method, $auth_token, $auth_secret, $method_params, $http_request_method = 'POST') {
 		
 		foreach($method_params as $key => $value) {
 			unset($method_params[$key]);
@@ -78,7 +78,7 @@ class OAuthClient {
 		 return $this->query(
 		 	$method,
 		 	$this->buildURLString(
-				"POST",
+				$http_request_method,
 				$method,
 				$d_params
 			),
