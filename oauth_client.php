@@ -82,7 +82,8 @@ class OAuthClient {
 				$method,
 				$d_params
 			),
-			$method_params
+			$method_params,
+			$http_request_method
 		);		
 		
 	}
@@ -123,7 +124,7 @@ class OAuthClient {
 		
 	}
 		
-	private function query($url, $params, $post_body = array()) {
+	private function query($url, $params, $post_body = array(), $http_request_method = 'POST') {
 		
 		$header_vars = array();
 		foreach($params as $key => $value) {
@@ -134,7 +135,7 @@ class OAuthClient {
 
 		$header = sprintf("Authorization: OAuth %s\r\n", join($header_vars, ", "));
 		
-		$http = array('method' => 'POST', 'header' => $header);
+		$http = array('method' => $http_request_method, 'header' => $header);
 		if(!empty($post_body)) {
 			$http["content"] = urldecode(http_build_query($post_body));
 		}
